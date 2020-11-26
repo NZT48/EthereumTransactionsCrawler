@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ethereum transactions crawler</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+</head>
+
+<body>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h2 class="display-4">Ethereum transactions crawler</h2>
+            <hr class="my-4">
+            <p class="lead">Web application that will collect data from the Ethereum blockchain about transactions
+                associated with a specific wallet address.</p>
+        </div>
+    </div>
+
+    <main class="container">
+
+        <form method="POST" action="/get" id="formular">
+            <div class="form-group" class="row">
+                <label for="wawallet_addressllet">Wallet address</label>
+                <input type="text" name="wallet_address" class="form-control" id="wallet_address"
+                    placeholder="Enter wallet address" required>
+            </div>
+            <div class="form-group row">
+                <label for="start_block">Start block:</label>
+                <input type="number" name="start_block" class="form-control" id="start_block" required>
+            </div>
+            <div class="form-group row">
+                <label for="end_block">End block:</label>
+                <input type="number" name="end_block" class="form-control" id="end_block">
+            </div>
+            <div class="form-check row">
+                <input type="checkbox" class="form-check-input" id="latest_check" name="latest">
+                <label id="latest_check" class="form-text text-muted">Check to use latest block as end
+                    block.</label>
+            </div>
+            <br>
+            <div class="row">
+                <input type="submit" value="Submit" class="btn btn-success btn-block">
+            </div>
+        </form>
+
+    </main>
+
+</body>
+
+</html>

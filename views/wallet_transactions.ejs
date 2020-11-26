@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wallet Transactions List</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+</head>
+
+<body>
+
+    <main class="container">
+        <div class="jumbotron jumbotron-fluid row">
+            <div class="container">
+                <h2 class="display-4">Ethereum transactions crawler</h2>
+                <hr class="my-4">
+                <p class="lead">Query parameters:</p>
+                <div class="row">
+                    <table class="table table-sm table-striped">
+                        <tr>
+                            <td>Wallet address:</td>
+                            <td><%= wallet_address %></td>
+                        </tr>
+                        <tr>
+                            <td>Date and time of request:</td>
+                            <td><%= moment(request_timestamp).format('DD. MMM YYYY. hh:mm A') %></td>
+                        </tr>
+                        <tr>
+                            <td>Start block:</td>
+                            <td><%= start_block %></td>
+                        </tr>
+                        <tr>
+                            <td>End block:</td>
+                            <td><% if(end_block == '') {%> latest <%} else {%> <%=end_block%> <%} %></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <p>Share link or access later via link:
+                <br>
+                <a
+                    href="http://localhost:3800/wallet_transactions/<%= mongo_obj_id %>">http://localhost:3800/wallet_transactions/<%= mongo_obj_id %></a>
+            </p>
+        </div>
+        <br>
+        <div class="m-auto row">
+            <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th style="width: 30%;">Txn Hash</th style="width: 50%;">
+                        <th style="width: 10%;">Block</th>
+                        <th style="width: 10%;">Age</th style="width: 50%;">
+                        <th style="width: 30%;">From/To</th style="width: 50%;">
+                        <th style="width: 10%;">Value</th style="width: 50%;">
+                        <th style="width: 10%;">Txn fee</th style="width: 50%;">
+                    </tr>
+                </thead>
+                <% for(let tx of transactions) { %>
+                <tbody>
+                    <tr>
+                        <th><%= tx.hash %></th>
+                        <th><%= tx.blockNumber %></th>
+                        <th><%= moment.unix(tx.timeStamp).fromNow(); %></th>
+                        <th>From:<%= tx.from %><br>To:<%= tx.to %></th>
+                        <th><%= web3.utils.fromWei(tx.value, 'ether'); %></th>
+                        <th><%= web3.utils.fromWei((tx.gasPrice * tx.gasUsed).toString(), 'ether'); %></th>
+                    </tr>
+                </tbody>
+                <% } %>
+            </table>
+        </div>
+
+    </main>
+
+</body>
+
+</html>
